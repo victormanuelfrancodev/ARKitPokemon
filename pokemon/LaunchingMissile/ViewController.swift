@@ -24,14 +24,14 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         sceneView.showsStatistics = true
         
         // Create a new scene
-        let missleScene = SCNScene(named: "art.scnassets/Charmander.scn")
+        let pokemonScene = SCNScene(named: "art.scnassets/Charmander.scn")
         
-        let missile = Missile(scene: missleScene!)
-        missile.name = "Charmander"
-        missile.position = SCNVector3(0,0,-1)
+        let charmander = Charmander(scene: pokemonScene!)
+        charmander.name = "Charmander"
+        charmander.position = SCNVector3(0,0,-1)
         
         let scene = SCNScene()
-        scene.rootNode.addChildNode(missile)
+        scene.rootNode.addChildNode(charmander)
         
         sceneView.scene = scene
         
@@ -45,37 +45,16 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     }
     
     @objc func tapped(recognizer :UITapGestureRecognizer) {
-        guard let missileNode = self.sceneView.scene.rootNode.childNode(withName: "Charmander", recursively: true)
+        guard let charmanderNode = self.sceneView.scene.rootNode.childNode(withName: "Charmander", recursively: true)
                    else {
-                       fatalError("Missile not found")
+                       fatalError("Charmander not found")
                }
-        missileNode.physicsBody = SCNPhysicsBody(type: .dynamic, shape: nil)
-        missileNode.physicsBody?.isAffectedByGravity = false
-        missileNode.physicsBody?.damping = 0.0
+        charmanderNode.physicsBody = SCNPhysicsBody(type: .dynamic, shape: nil)
+        charmanderNode.physicsBody?.isAffectedByGravity = false
+        charmanderNode.physicsBody?.damping = 0.0
         
-        missileNode.physicsBody?.applyForce(SCNVector3(0,100,0), asImpulse: false)
-        /*
-        guard let missileNode = self.sceneView.scene.rootNode.childNode(withName: "Missile", recursively: true)
-            else {
-                fatalError("Missile not found")
-        }
-        
-        // get the smoke node
-        guard let smokeNode = missileNode.childNode(withName: "smokeNode", recursively: true) else {
-            fatalError("no smoke node found")
-        }
-        
-        smokeNode.removeAllParticleSystems()
-        
-        let fire = SCNParticleSystem(named: "fire.scnp", inDirectory: nil)
-        
-        smokeNode.addParticleSystem(fire!)
-        
-        missileNode.physicsBody = SCNPhysicsBody(type: .dynamic, shape: nil)
-        missileNode.physicsBody?.isAffectedByGravity = false
-        missileNode.physicsBody?.damping = 0.0
-        
-        missileNode.physicsBody?.applyForce(SCNVector3(0,100,0), asImpulse: false)*/
+        charmanderNode.physicsBody?.applyForce(SCNVector3(0,100,0), asImpulse: false)
+  
     }
     
     override func viewWillAppear(_ animated: Bool) {
